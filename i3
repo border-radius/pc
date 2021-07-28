@@ -26,7 +26,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
-bindsym $mod+d focus child
+bindsym $mod+c focus child
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
