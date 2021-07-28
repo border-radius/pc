@@ -1,0 +1,16 @@
+general {
+        colors = true
+	separator = ' '
+        interval = 5
+}
+
+order += "load"
+order += "tztime local"
+
+tztime local {
+        format = "%d.%m.%Y %H:%M:%S"
+}
+
+load {
+        format = "%1min"
+}
