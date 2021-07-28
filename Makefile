@@ -14,7 +14,7 @@ de:
 	sudo cp "$(CWD)/i3status" /etc/i3status.conf
 
 software:
-	sudo apt install virtualbox virtualbox—ext–pack -y
+	sudo apt install virtualbox virtualbox-ext-pack -y
 	flatpak install flathub org.mozilla.firefox
 	flatpak install flathub org.chromium.Chromium
 	flatpak install flathub org.telegram.desktop
