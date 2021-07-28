@@ -7,7 +7,7 @@ update:
 de:
 	sudo add-apt-repository ppa:alexlarsson/flatpak
 	sudo add-apt-repository -u ppa:snwh/ppa
-	sudo apt install xinit i3 kitty htop pcmanfm lxappearance flatpak arc-theme paper-icon-theme -y
+	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme -y
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	mkdir -p "$(HOME)/.config/i3"
 	cp "$(CWD)/i3" "$(HOME)/.config/i3/config"
