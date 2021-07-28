@@ -26,10 +26,17 @@ software:
 	flatpak install flathub org.electrum.electrum
 	flatpak install flathub org.keepassxc.KeePassXC
 
+syncthing:
+	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+	sudo apt-get install apt-transport-https syncthing -y
+	sudo systemctl enable "syncthing@$(USER).service"
+	sudo systemctl start "syncthing@$(USER).service"
+
 keyboard:
 	sudo apt install keyboard-configuration console-setup -y
 	sudo cp "$(CWD)/keyboard" /etc/default/keyboard
 	sudo dpkg-reconfigure keyboard-configuration --frontend noninteractive
 	sudo setupcon
 
-everything: update de keyboard software
+everything: update de keyboard software syncthing
