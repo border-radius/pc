@@ -1,0 +1,5 @@
+XKBMODEL="pc105"
+XKBLAYOUT="us,ru"
+XKBVARIANT=","
+XKBOPTIONS="grp:caps_toggle,grp:switch,terminate:ctrl_alt_bksp,grp_led:scroll,ctrl:swapcaps"
+BACKSPACE="guess"
