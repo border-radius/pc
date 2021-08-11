@@ -26,7 +26,6 @@ software:
 	flatpak install flathub org.electrum.electrum -y
 	flatpak install flathub org.keepassxc.KeePassXC -y
 	flatpak install flathub com.github.micahflee.torbrowser-launcher -y
-	xdg-settings set default-web-browser org.mozilla.firefox.desktop
 
 nvm:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
@@ -49,5 +48,11 @@ secrets:
 	mkdir -p "$(HOME)/.ssh"
 	cp "$(HOME)/secrets/ssh/"* "$(HOME)/.ssh"
 	chmod 600 "$(HOME)/.ssh/"*
+
+defaults:
+	xdg-settings set default-web-browser org.mozilla.firefox.desktop
+
+battery:
+	upower -i /org/freedesktop/UPower/devices/battery_BAT0
 
 everything: update de keyboard software nvm syncthing
