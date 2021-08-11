@@ -14,7 +14,7 @@ de:
 	sudo cp "$(CWD)/i3status" /etc/i3status.conf
 
 software:
-	sudo apt install virtualbox virtualbox-ext-pack -y
+	sudo apt install virtualbox virtualbox-ext-pack openvpn -y
 	flatpak install flathub org.mozilla.firefox -y
 	flatpak install flathub org.chromium.Chromium -y
 	flatpak install flathub org.telegram.desktop -y
@@ -26,6 +26,16 @@ software:
 	flatpak install flathub org.electrum.electrum -y
 	flatpak install flathub org.keepassxc.KeePassXC -y
 	flatpak install flathub com.github.micahflee.torbrowser-launcher -y
+
+docker:
+	sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt update
+	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+	sudo groupadd docker -f
+	sudo usermod -aG docker $(USER)
+	newgrp docker
 
 nvm:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
