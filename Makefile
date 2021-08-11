@@ -58,6 +58,7 @@ configs:
 	newgrp docker
 	git config --global user.email "pharshmaster@gmail.com"
 	git config --global user.name "border-radius"
+	sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
 postreboot:
 	xdg-settings set default-web-browser org.mozilla.firefox.desktop
