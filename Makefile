@@ -75,4 +75,12 @@ camera:
 	sudo killall gvfs-gphoto2-volume-monitor || true
 	gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
 
+dockerstop:
+	docker stop $(docker ps -a -q)
+
+dockerclean:
+	docker rm $(docker ps -a -q) 
+	docker system prune -a
+	docker system prune --volumes
+
 everything: repositories update apt flatpak youtubedl nvm configs
