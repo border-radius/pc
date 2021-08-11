@@ -20,7 +20,7 @@ repositories:
 	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
 apt:
-	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv virtualbox virtualbox-ext-pack openvpn ssh-askpass apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io apt-transport-https syncthing keyboard-configuration console-setup -y
+	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv virtualbox virtualbox-ext-pack openvpn ssh-askpass apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io apt-transport-https syncthing keyboard-configuration console-setup v4l2loopback-dkms gphoto2 alsa-utils -y
 
 flatpak:
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -69,5 +69,10 @@ secrets:
 
 battery:
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
+camera:
+	sudo modprobe v4l2loopback
+	sudo killall gvfs-gphoto2-volume-monitor || true
+	gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
 
 everything: repositories update apt flatpak youtubedl nvm configs
