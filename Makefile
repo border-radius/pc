@@ -14,7 +14,7 @@ de:
 	sudo cp "$(CWD)/i3status" /etc/i3status.conf
 
 software:
-	sudo apt install virtualbox virtualbox-ext-pack openvpn -y
+	sudo apt install virtualbox virtualbox-ext-pack openvpn ssh-askpass -y
 	flatpak install flathub org.mozilla.firefox -y
 	flatpak install flathub org.chromium.Chromium -y
 	flatpak install flathub org.telegram.desktop -y
