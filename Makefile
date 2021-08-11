@@ -20,7 +20,7 @@ repositories:
 	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
 apt:
-	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv virtualbox virtualbox-ext-pack openvpn ssh-askpass apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io apt-transport-https syncthing keyboard-configuration console-setup v4l2loopback-dkms gphoto2 alsa-utils -y
+	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv virtualbox virtualbox-ext-pack openvpn ssh-askpass apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io apt-transport-https syncthing keyboard-configuration console-setup v4l2loopback-dkms gphoto2 alsa-utils transmission-gtk -y
 
 flatpak:
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -35,6 +35,7 @@ flatpak:
 	flatpak install flathub org.electrum.electrum -y
 	flatpak install flathub org.keepassxc.KeePassXC -y
 	flatpak install flathub com.github.micahflee.torbrowser-launcher -y
+	sudo flatpak install flathub org.gtk.Gtk3theme.Arc-Dark -y
 
 youtubedl:
 	wget -O - https://yt-dl.org/downloads/latest/youtube-dl | sudo tee /usr/bin/youtube-dl >/dev/null
