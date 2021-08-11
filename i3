@@ -2,6 +2,7 @@ set $mod Mod4
 font pango:monospace 8
 floating_modifier $mod
 
+bindsym $mod+Shift+q kill
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+d exec dmenu_run
 bindsym $mod+Shift+d exec i3-dmenu-desktop
