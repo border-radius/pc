@@ -4,19 +4,26 @@ CWD := $(shell cd -P -- '$(shell dirname -- "$0")' && pwd -P)
 update:
 	sudo apt update && sudo apt upgrade -y
 
-de:
+repositories:
+	# flatpak
 	sudo add-apt-repository ppa:alexlarsson/flatpak
-	sudo add-apt-repository -u ppa:snwh/ppa
-	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv -y
-	wget -O - https://yt-dl.org/downloads/latest/youtube-dl | sudo tee /usr/bin/youtube-dl >/dev/null
-	sudo chmod a+x /usr/bin/youtube-dl
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	mkdir -p "$(HOME)/.config/i3"
-	cp "$(CWD)/i3" "$(HOME)/.config/i3/config"
-	sudo cp "$(CWD)/i3status" /etc/i3status.conf
 
-software:
-	sudo apt install virtualbox virtualbox-ext-pack openvpn ssh-askpass -y
+	# paper theme (icons and cursor)
+	sudo add-apt-repository -u ppa:snwh/ppa
+
+	# docker
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+	# syncthing
+	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+apt:
+	sudo apt install xinit i3 kitty htop pcmanfm gthumb lxappearance flatpak arc-theme paper-icon-theme xdg-utils wireguard resolvconf blueman pavucontrol mpv virtualbox virtualbox-ext-pack openvpn ssh-askpass apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io apt-transport-https syncthing keyboard-configuration console-setup -y
+
+flatpak:
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub org.mozilla.firefox -y
 	flatpak install flathub org.chromium.Chromium -y
 	flatpak install flathub org.telegram.desktop -y
@@ -29,31 +36,30 @@ software:
 	flatpak install flathub org.keepassxc.KeePassXC -y
 	flatpak install flathub com.github.micahflee.torbrowser-launcher -y
 
-docker:
-	sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-	sudo apt update
-	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-	sudo groupadd docker -f
-	sudo usermod -aG docker $(USER)
-	newgrp docker
+youtubedl:
+	wget -O - https://yt-dl.org/downloads/latest/youtube-dl | sudo tee /usr/bin/youtube-dl >/dev/null
+	sudo chmod a+x /usr/bin/youtube-dl
 
 nvm:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
-syncthing:
-	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-	sudo apt-get install apt-transport-https syncthing -y
-	sudo systemctl enable "syncthing@$(USER).service"
-	sudo systemctl start "syncthing@$(USER).service"
-
-keyboard:
-	sudo apt install keyboard-configuration console-setup -y
+configs:
+	mkdir -p "$(HOME)/.config/i3"
+	cp "$(CWD)/i3" "$(HOME)/.config/i3/config"
+	sudo cp "$(CWD)/i3status" /etc/i3status.conf
 	sudo cp "$(CWD)/xkb" /etc/default/keyboard
 	sudo dpkg-reconfigure keyboard-configuration --frontend noninteractive
 	sudo setupcon
+	sudo systemctl enable "syncthing@$(USER).service"
+	sudo systemctl start "syncthing@$(USER).service"
+	sudo groupadd docker -f
+	sudo usermod -aG docker $(USER)
+	newgrp docker
+	git config --global user.email "pharshmaster@gmail.com"
+	git config --global user.name "border-radius"
+
+postreboot:
+	xdg-settings set default-web-browser org.mozilla.firefox.desktop
 
 secrets:
 	sudo cp "$(HOME)/secrets/wg/"*.conf /etc/wireguard
@@ -61,10 +67,7 @@ secrets:
 	cp "$(HOME)/secrets/ssh/"* "$(HOME)/.ssh"
 	chmod 600 "$(HOME)/.ssh/"*
 
-defaults:
-	xdg-settings set default-web-browser org.mozilla.firefox.desktop
-
 battery:
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
 
-everything: update de keyboard software nvm syncthing
+everything: repositories update apt flatpak youtubedl nvm configs
