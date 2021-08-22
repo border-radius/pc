@@ -35,6 +35,7 @@ flatpak:
 	flatpak install flathub org.electrum.electrum -y
 	flatpak install flathub org.keepassxc.KeePassXC -y
 	flatpak install flathub com.github.micahflee.torbrowser-launcher -y
+	flatpak install flathub io.github.peazip.PeaZip -y
 	sudo flatpak install flathub org.gtk.Gtk3theme.Arc-Dark -y
 
 youtubedl:
