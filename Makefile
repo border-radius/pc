@@ -87,4 +87,10 @@ dockerclean:
 	docker system prune -a
 	docker system prune --volumes
 
+dual-screen:
+	xrandr --output HDMI-1 --off --output HDMI-2 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output DisplayPort-1-1 --off --output HDMI-A-1-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-D-1-0 --off
+
+one-screen:
+	xrandr --output HDMI-1 --off --output HDMI-2 --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output DisplayPort-1-1 --off --output HDMI-A-1-3 --off --output DVI-D-1-0 --off
+
 everything: repositories update apt flatpak youtubedl nvm configs
