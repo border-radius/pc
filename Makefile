@@ -93,4 +93,7 @@ dual-screen:
 one-screen:
 	xrandr --output HDMI-1 --off --output HDMI-2 --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-3 --off --output DisplayPort-1-1 --off --output HDMI-A-1-3 --off --output DVI-D-1-0 --off
 
+ff:
+	flatpak run org.mozilla.firefox -ProfileManager
+
 everything: repositories update apt flatpak youtubedl nvm configs
