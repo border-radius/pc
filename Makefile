@@ -97,4 +97,7 @@ one-screen:
 ff:
 	flatpak run org.mozilla.firefox -ProfileManager
 
+lock:
+	i3lock -i lock.png
+
 everything: repositories update apt flatpak youtubedl nvm configs
